@@ -1,40 +1,5 @@
 from tkinter import Tk
 
-pain = """ Check all that describe your pain today:
-[ ] Aching	[X] Shooting	[X] Cramping
-[ ] Spasming	[X] Dull		[X] Squeezing
-[X] Tingling/Pins & Needles	[X] Tiring/Exhausting
-[X] Hot/Burning		[ ] Stabbing/Sharp
-[ ] Numb	[ ] Throbbing [X] Shock-like
-Which word best describes the frequency of your pain?
-  ( ) Constant	(X) Intermittent
-  """
-
-pains = pain.split("]")
-frequencies = pains.pop()
-frequencies = frequencies.split(")")
-frequencies.pop() # The last string does not have any checkbox data
-# print(pains)
-# print(frequencies)
-
-pain_descriptors_list = ["aching", "shooting", "cramping", "spasming",
-                         "dull", "squeezing", "tingling/pins & needles",
-                         "tiring/exhausting", "hot/burning", "stabbing/sharp",
-                         "numb", "throbbing", "shock-like"]
-reported_pains_bool = []
-for pain in pains:
-    if pain[-1] == "X":
-        reported_pains_bool.append(True)
-    else:
-        reported_pains_bool.append(False)
-# print(reported_pains_bool)
-
-frequency = ""
-if frequencies[0][-1] == "X":
-    frequency = "constant"
-elif frequencies[1][-1] == "X":
-    frequency = "intermittent"
-
 def listSymptoms(symptoms):
     symptomString = ""
     if len(symptoms) == 1:
@@ -44,15 +9,6 @@ def listSymptoms(symptoms):
         symptomString = ", ".join(symptoms)
         symptomString += " and " + last
     return symptomString
-
-reported_symptoms = []
-for i in range(0, len(pain_descriptors_list) - 1):
-    if reported_pains_bool[i]:
-        reported_symptoms.append(pain_descriptors_list[i])
-
-outputString = "Patient reports " + frequency + " pain that is " + listSymptoms(reported_symptoms) + " in nature."
-
-print(outputString)
 
 def copy(inputString):
     r = Tk()
@@ -228,17 +184,74 @@ def allROS(inputText):
     neurologicalText = remainder[0]
     psychiatricText = remainder[1]
 
-    outString = """"""
-    outString += """\n Constitutional \n""" + const(constText)
-    outString += """\n\n Eyes \n""" + eye(eyesText)
-    outString += """\n\n Ears/Nose/Throat/Neck \n""" + ent(entText)
-    outString += "\n\n Cardiovascular \n" + cardiovascular(cardioText)
-    outString += "\n\n Respiratory \n" + respiratory(respiratoryText)
-    outString += "\n\n Gastrointestinal \n" + gastrointestinal(gastrointestinalText)
-    outString += "\n\n Musculoskeletal \n" + musculoskeletal(musculoskeletalText)
-    outString += "\n\n Genitourinary \n" + genitourinary(genitourinaryText)
-    outString += "\n\n Neurological \n" + neurological(neurologicalText)
-    outString += "\n\n Psychiatric \n" + psychiatric(psychiatricText)
+    def lister(things_list):
+        if len(things_list) == 0:
+            return ""
+        elif len(things_list) == 1:
+            return things_list[0]
+        else:
+            last = things_list.pop()
+            outString = ", ".join(things_list)
+            outString += " and " + last
+            return outString
 
+    outString = """"""
+    negatives_list = []
+    if const(constText) != "Denies relevant symptoms. ":
+        outString += """Constitutional \n""" + const(constText)
+    else:
+        negatives_list.append("Constitutional")
+
+    if eye(eyesText) != "Denies relevant symptoms. ":
+        outString += """\n\nEyes \n""" + eye(eyesText)
+    else:
+        negatives_list.append("Eyes")
+
+    if ent(entText) != "Denies relevant symptoms. ":
+        outString += """\n\nEars/Nose/Throat/Neck \n""" + ent(entText)
+    else:
+        negatives_list.append("ENT")
+
+    if cardiovascular(cardioText) != "Denies relevant symptoms. ":
+        outString += "\n\nCardiovascular \n" + cardiovascular(cardioText)
+    else:
+        negatives_list.append("Cardio")
+
+    if respiratory(respiratoryText) != "Denies relevant symptoms. ":
+        outString += "\n\nRespiratory \n" + respiratory(respiratoryText)
+    else:
+        negatives_list.append("Respiratory")
+
+    if gastrointestinal(gastrointestinalText) != "Denies relevant symptoms. ":
+        outString += "\n\nGastrointestinal \n" + gastrointestinal(gastrointestinalText)
+    else:
+        negatives_list.append("GI")
+
+    if musculoskeletal(musculoskeletalText) != "Denies relevant symptoms. ":
+        outString += "\n\nMusculoskeletal \n" + musculoskeletal(musculoskeletalText)
+    else:
+        negatives_list.append("Musculoskeletal")
+
+    if genitourinary(genitourinaryText) != "Denies relevant symptoms. ":    
+        outString += "\n\nGenitourinary \n" + genitourinary(genitourinaryText)
+    else:
+        negatives_list.append("GU")
+
+    if neurological(neurologicalText) != "Denies relevant symptoms. ":
+        outString += "\n\nNeurological \n" + neurological(neurologicalText)
+    else:
+        negatives_list.append("Neuro")
+
+    if psychiatric(psychiatricText) != "Denies relevant symptoms. ":
+        outString += "\n\nPsychiatric \n" + psychiatric(psychiatricText)
+        print(psychiatricText)
+    else:
+        negatives_list.append("Psych")
+
+    if len(negatives_list) >= 1:
+        outString += "\n\nThe review of systems is negative for "
+        outString += lister(negatives_list)
+        outString += "."
+    
     copy(outString)
     print(outString)
