@@ -1,5 +1,50 @@
 from tkinter import Tk
 
+"""
+Below are some sample charts from a fake chart
+
+Example pain chart:
+
+Check all that describe your pain today:
+[ ] Aching [ ] Shooting [ ] Cramping
+[ ] Spasming [ ] Dull [ ] Squeezing
+[ ] Tingling/Pins & Needles [ ] Tiring/Exhausting
+[ ] Hot/Burning [X] Stabbing/Sharp
+[ ] Numb [X] Throbbing [ ] Shock-like
+Which word best describes the frequency of your pain?
+(X) Constant ( ) Intermittent
+
+Example ROS:
+
+Constitutional:
+[X] Chills [X] Difficulty Sleeping [ ] Easy Bruising [ ] Excessive Sweating [X] Excessive Thirst
+[ ] Fatigue [X] Fevers [ ] Insomnia [ ] Low Sex Drive [X] Night Sweats
+[ ] Tremors [ ] Unexplained Weight Gain [ ] Unexplained Weight Loss
+Eyes:
+[X] Recent Visual Changes
+Ears/Nose/Throat/Neck:
+[ ] Dental Problems [ ] Earaches [ ] Hearing Problems [X] Nosebleeds [ ] Recurring Sore Throats
+[ ] Ringing in the Ears [X] Sinus Problems
+Cardiovascular:
+[ ] Bleeding Disorder [ ] Chest Pain [ ] Hearing Problems [ ] Nosebleeds [ ] High Blood Pressure
+[ ] Irregular Heart Beat [ ] Lightheadedness [ ] Swelling in the Feet [ ] Shortness of Breath During Sleep
+Respiratory:
+[ ] Cough [X] Wheezing [ ] Pulmonary Embolism [X] Shortness of Breath on Exertion/Effort
+Gastrointestinal:
+[ ] Abdominal Cramps [ ] Acid Reflux [ ] Constipation [X] Dark and Tarry Stools [ ] Diarrhea
+[ ] Hernia [ ] Vomiting [ ] Coffee Ground Appearance in Vomit
+Musculoskeletal:
+[ ] Back Pain [ ] Joint Pain [X] Joint Stiffness [ ] Joint Swelling [ ] Muscle Spasms
+[ ] Neck Pain
+Genitourinary/Nephrology:
+[ ] Blood in Urine [ ] Flank Pain [X] Painful Urination [ ] Decreased Urine Flow/Frequency/Volume
+Neurological:
+[ ] Dizziness [X] Headaches [ ] Numbness/Tingling [ ] Carpal Tunnel Syndrome [ ] Tremors
+[ ] Seizures [ ] Instability When Walking
+Psychiatric:
+[ ] Depressed Mood [X] Feeling Anxious [ ] Stress Problems [ ] Suicidal Thoughts [ ] Suicidal Planning
+"""
+
 def listSymptoms(symptoms):
     symptomString = ""
     if len(symptoms) == 1:
@@ -244,7 +289,6 @@ def allROS(inputText):
 
     if psychiatric(psychiatricText) != "Denies relevant symptoms. ":
         outString += "\n\nPsychiatric \n" + psychiatric(psychiatricText)
-        print(psychiatricText)
     else:
         negatives_list.append("Psych")
 
